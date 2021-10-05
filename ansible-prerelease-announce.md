@@ -1,51 +1,64 @@
+---
+tags: ansible-releng, template, email
+title: Major release announcement
+---
+
 Hi all,
 
-We're happy to announce that the ansible-3.0.0 beta1 package is now available! This update is based on the ansible-base-2.10.x package just like ansible-2.10 was so the changes shouldn't be too major.  However, it does contain new major versions of many collections which means that there will be some backwards incompatible changes in the modules and plugins.
+We're happy to announce that the Ansible 5.0.0 alpha1 package is now available! This update is based on the ansible-core-2.12.x package which is a major update from the one used by Ansible 4.  Ansible 4 was based on Ansible Base 2.11.x. There may be backwards incompatibilities in the core playbook language.  Please see the porting guide for details.
+
+This is an alpha release so we encourage people to use it to test that their playbooks and workflows work with the upcoming major release and report any bugs to the relevant bug trackers (https://github.com/ansible/ansible/ for bugs in ansible-core and the relevant collection for bugs in a collection's modules and plugins).
+
 
 How to get it
 -------------
 
-Due to a limitation in pip, if you are upgrading from Ansible 2.9 (or earlier), you need to uninstall ansible before installing the 3.0.0b1 version:
+Due to a limitation in pip, if you are upgrading from Ansible 3 (or earlier), you need to uninstall Ansible and Ansible Base before installing Ansible 5:
 
 ```
-$ pip uninstall ansible
-$ pip install ansible==3.0.0b1 --user
+$ pip uninstall ansible ansible-base
+$ pip install ansible==5.0.0a1 --user
 ```
 
 The tar.gz of the release can be found here:
 
-* Ansible 3.0.0b1
-https://pypi.python.org/packages/source/a/ansible/ansible-3.0.0b1.tar.gz
-SHA256: 1da8059604136e520cd4f6e0792309dbf6ef79b927e6c41afc194fb418b23855
+* Ansible 5.0.0a1:
+https://pypi.python.org/packages/source/a/ansible/ansible-5.0.0a1.tar.gz
 
-What's new in Ansible 3.0.0b1
------------------------------
+  SHA256: d96c8db1fa61c18421c3775b3d24cd8c0ac48c85dc13b511a802c144626082a4
+  
+What's new in Ansible 5.0.0
+---------------------------
 
-* The Ansible package has moved to semantic versioning (https://semver.org/).  This standard allows you to tell if a new version of Ansible contains incompatibilities by looking at the version number.  Read the semver specification for more information.
+* This version of Ansible is based on Ansible Core 2.12 which is a new major update of the ansible-core package.  It may contain backwards incompatible changes to the playbook language and command line programs.  Please see the porting guide (linked at the bottom) for more information.
 
-* Collections which have opted into being a part of the Ansible-3.0.0b1 unified changelog will have an entry on this page:
-https://github.com/ansible-community/ansible-build-data/blob/main/3/CHANGELOG-v3.rst
+* ansible-core-2.12 now requires Python 3.8 or greater on the controller (where you run ansible-playbook).  Managed nodes continue to support Python 2.7 and Python 3.6 or greater unless noted otherwise in a specific module's documentation.
 
-* For collections which have not opted into the unified changelog, consult the list of included collections in the link below and check their entry on https://galaxy.ansible.com for information about their
-changes.
-  * https://github.com/ansible-community/ansible-build-data/blob/main/3/ansible-3.0.0b1.deps
+* Collections which have opted into being a part of the Ansible 5.0.0 unified changelog will have an entry on this page:
+  * https://github.com/ansible-community/ansible-build-data/blob/main/5/CHANGELOG-v5.rst
+
+* For collections which have not opted into the unified changelog, consult the list of included collections in the link below and check their entry on https://galaxy.ansible.com for information about their changes.
+  * https://github.com/ansible-community/ansible-build-data/blob/main/5/ansible-5.0.0.deps
 
 * You can find more information for those on
-https://galaxy.ansible.com/. For instance, the community.crypto collection listed in the ansible-3.0.0b1.deps file has a galaxy page at https://galaxy.ansible.com/community/crypto/
+https://galaxy.ansible.com/. For instance, the community.crypto collection listed in the ansible deps file has a galaxy page at https://galaxy.ansible.com/community/crypto/
 
-* Changelog for ansible-base-2.10.6 which this release of ansible installs: https://github.com/ansible/ansible/blob/stable-2.10/changelogs/CHANGELOG-v2.10.rst
+* The changelog for Ansible Core 2.12, which this release of ansible installs, is located here: https://github.com/ansible/ansible/blob/stable-2.12/changelogs/CHANGELOG-v2.12.rst
 
-What's the schedule for new Ansible releases after 3.0.0b1?
--------------------------------------------------------------------
 
-* Except for ansible-2.9.x, older versions of ansible are not seeing maintenance releases.  If there is a desire for maintenance releases of older versions, drop by a Community Working Group Meeting to discuss how you can help. (
-https://github.com/ansible/community/tree/main/meetings#wednesdays )
-* Since we have not updated the ansible-base major version in this release, we decided that a quick release schedule was preferred. There will be one release candidate, on February 9.  If no blockers are discovered, Ansible-3.0.0 final will happen on February 16, 2021.
-* Minor releases of ansible-3.0.0 will be released approximately every three weeks.  Since we're now using semantic versioning, these new releases will be 3.1.0, 3.2.0, etc.  They will contain bugfixes and new features but no backwards incompatibilities.
+What's the schedule for new Ansible 5.0.0?
+---------------------------------------------------------
+
+* The Ansible-5 final release is expected on 2021-11-30. For the full release schedule, including dates for other pre-releases, see the roadmap page:
+  * https://docs.ansible.com/ansible/devel/roadmap/COLLECTIONS_5.html
+
+* New minor releases will occur approximately every three weeks (Ansible 5.1.0, Ansible 5.2.0, etc).  They will contain bugfixes and new features but no backwards incompatibilities.
+
+* Once Ansible 5.0.0 final has been released, updates to Ansible 4 will stop.
+  * We've been putting together a document on issues that would need to be addressed if someone would like to volunteer to create long term updates: https://hackmd.io/plQlGzcFRFGLnPXIeg3cwQ
 
 
 Porting Help
 -------------
 
-There's a unified porting guide for collections which have opted-in. You can find that at:
-https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/porting_guides/porting_guide_3.rst 
+A unified porting guide for collections which have opted-in is available here: https://docs.ansible.com/ansible/devel/porting_guides/porting_guide_4.html
